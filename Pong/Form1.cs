@@ -143,20 +143,24 @@ namespace Pong
             SetParameters();
 
             // TODO create code to make a graphics object, a brush, and a font to display the countdown
+            Graphics countdownGraphics = this.CreateGraphics();
+            Font drawFont = new Font("Arial", 16);
+            SolidBrush drawBrush = new SolidBrush(Color.White);
+            
 
             startLabel.Visible = false;
             Refresh();
             
             //countdown to start of game
-            for (; ; ) // TODO create conditions for a for loop that counts down from 3 
+            for (int i = 3; i >= 0; i--)
             {
-                // --- create code using DrawString to display the countdown in the appropriate area.  
-                // --- sleep for 1 second
-                // --- refresh the screen
+                countdownGraphics.DrawString("sdfsdf", drawFont, drawBrush, 10, 20);
+                Thread.Sleep(1000);
+                Refresh();
             }
             
             // TODO start the gameUpdateLoop timer
-            newGameOk = false;
+           // newGameOk = false;
         }
 
         /// <summary>
@@ -179,9 +183,10 @@ namespace Pong
 
             }
 
-            // TODO set starting X position for ball to middle of screen, (use this.Width and BALL_SIZE)
-            // TODO set starting Y position for ball to middle of screen, (use this.Height and BALL_SIZE)
-
+            // Ball position (width)
+            ballX = this.Width / 2 - BALL_SIZE / 2;
+            // Ball position (Height)
+            ballY = this.Height / 2 - BALL_SIZE / 2; 
         }
 
         /// <summary>
@@ -197,6 +202,7 @@ namespace Pong
             #region update ball position
 
             // TODO create code to move ball either left or right based on ballMoveRight and BALL_SPEED
+            
 
             // TODO create code move ball either down or up based on ballMoveDown and BALL_SPEED
 
@@ -292,10 +298,14 @@ namespace Pong
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            // TODO draw paddles using FillRectangle
+            // Paddle #1
+            e.Graphics.FillRectangle(drawBrush, PADDLE_EDGE, paddle1Y, PADDLE_WIDTH, PADDLE_LENGTH);
 
+            // Paddle #2
+            e.Graphics.FillRectangle(drawBrush, this.Width - PADDLE_EDGE - PADDLE_WIDTH, paddle2Y, PADDLE_WIDTH, PADDLE_LENGTH);
 
-            // TODO draw ball using FillRectangle
+            // Ball
+            e.Graphics.FillRectangle(drawBrush, ballX, ballY, BALL_SIZE, BALL_SIZE);
 
         }
 
